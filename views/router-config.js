@@ -10,7 +10,7 @@ export function createRouter () {
   const router = new Router({
     mode: 'history',
     routes: [
-      { path: '/index', component: index },
+      { path: '/', component: index },
       { path: '/login', component: login }
     ]
   })

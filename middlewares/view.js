@@ -58,6 +58,7 @@ module.exports = class ViewMiddleware {
 
       try {
         ctx.set('Content-Type', 'text/html')
+        // ctx.body = await getHTML(context)
         ctx.body = await getHTML(context)
       } catch (error) {
         if (error.code === 401) {

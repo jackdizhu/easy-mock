@@ -110,10 +110,7 @@ const createAPI = (url, method, config) => {
 }
 
 const u = {
-  getList: config => createAPI('/u', 'get', config),
-  login: config => createAPI('/u/login', 'post', config),
-  register: config => createAPI('/u/register', 'post', config),
-  update: config => createAPI('/u/update', 'post', config)
+  getList: config => createAPI('/u', 'get', config)
 }
 
 export {
