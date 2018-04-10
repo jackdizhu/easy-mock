@@ -109,36 +109,6 @@ const createAPI = (url, method, config) => {
   })
 }
 
-// 创建用于导出数据的表单
-const createExportForm = (url, data) => {
-  const form = document.createElement('form')
-
-  form.method = 'POST'
-  form.action = url
-
-  if (Array.isArray(data)) {
-    data.forEach((d) => {
-      const input = document.createElement('input')
-      input.name = 'ids[]'
-      input.value = d
-      form.appendChild(input)
-    })
-  } else {
-    const input = document.createElement('input')
-    input.name = 'project_id'
-    input.value = data
-    form.appendChild(input)
-  }
-
-  document.body.appendChild(form)
-  form.submit()
-  document.body.removeChild(form)
-}
-
-const util = {
-  wallpaper: config => createAPI('/wallpaper', 'get', config)
-}
-
 const u = {
   getList: config => createAPI('/u', 'get', config),
   login: config => createAPI('/u/login', 'post', config),
@@ -146,43 +116,7 @@ const u = {
   update: config => createAPI('/u/update', 'post', config)
 }
 
-const project = {
-  getList: config => createAPI('/project', 'get', config),
-  sendMail: config => createAPI('/project/sendMail', 'get', config), // 发送邮件
-  copy: config => createAPI('/project/copy', 'post', config),
-  create: config => createAPI('/project/create', 'post', config),
-  update: config => createAPI('/project/update', 'post', config),
-  updateSwagger: config => createAPI('/project/sync/swagger', 'post', config),
-  updateWorkbench: config => createAPI('/project/update_workbench', 'post', config),
-  delete: config => createAPI('/project/delete', 'post', config)
-}
-
-const mock = {
-  getList: config => createAPI('/mock', 'get', config),
-  create: config => createAPI('/mock/create', 'post', config),
-  update: config => createAPI('/mock/update', 'post', config),
-  delete: config => createAPI('/mock/delete', 'post', config),
-  export: config => createExportForm('/api/mock/export', config)
-}
-
-const group = {
-  getList: config => createAPI('/group', 'get', config),
-  join: config => createAPI('/group/join', 'post', config),
-  create: config => createAPI('/group/create', 'post', config),
-  update: config => createAPI('/group/update', 'post', config),
-  delete: config => createAPI('/group/delete', 'post', config)
-}
-
-const dashboard = {
-  getList: config => createAPI('/dashboard', 'get', config)
-}
-
 export {
   u,
-  project,
-  mock,
-  util,
-  group,
-  dashboard,
   initAPI
 }

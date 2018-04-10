@@ -47,10 +47,10 @@ app
     return true
   }))
   .use(koaBody({ multipart: true }))
-  .use(routerConfig.mock.routes())
-  .use(routerConfig.mock.allowedMethods())
-  .use(routerConfig.api.routes())
-  .use(routerConfig.api.allowedMethods())
+  // .use(routerConfig.mock.routes())
+  // .use(routerConfig.mock.allowedMethods())
+  // .use(routerConfig.api.routes())
+  // .use(routerConfig.api.allowedMethods())
 
 app.proxy = config.get('proxy')
 
