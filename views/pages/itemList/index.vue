@@ -1,10 +1,11 @@
 <template>
   <div class="em-index">
-    <transition name="zoom">
-      <div class="login">
-        login
-      </div>
-    </transition>
+    <div class="login">
+      itemList
+    </div>
+    <div class="ul-box">
+      {{itemList}}
+    </div>
   </div>
 </template>
 
@@ -22,6 +23,9 @@ export default {
   mounted () {
   },
   computed: {
+    itemList () {
+      return this.$store.state.itemList
+    }
   },
   watch: {
   },

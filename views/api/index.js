@@ -109,11 +109,11 @@ const createAPI = (url, method, config) => {
   })
 }
 
-const u = {
-  getList: config => createAPI('/u', 'get', config)
+const item = {
+  getList: config => createAPI('/item_getList', 'get', config)
 }
 
 export {
-  u,
+  item,
   initAPI
 }

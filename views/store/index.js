@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import { version } from '../../package.json'
-import user from './modules/user'
+import itemList from './modules/itemList'
 import app from './modules/app'
 
 Vue.use(Vuex)
@@ -17,7 +17,7 @@ export function createStore () {
         },
         ...app
       },
-      user: {
+      itemList: {
         state: {
           id: '',
           name: '',
@@ -26,7 +26,7 @@ export function createStore () {
           headImg: '',
           token: ''
         },
-        ...user
+        ...itemList
       }
     }
   })

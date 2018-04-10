@@ -34,18 +34,19 @@ app
   .use(logger)
   // .use(middleware.util)
   .use(cors({ credentials: true, maxAge: 2592000 }))
-  .use(koaJwt({ secret: jwtSecret }).unless((ctx) => {
-    if (/^\/api/.test(ctx.path)) {
-      return pathToRegexp([
-        '/api/u/login',
-        '/api/u/register',
-        '/api/mock/by_projects',
-        '/api/mock/export',
-        '/api/wallpaper'
-      ]).test(ctx.path)
-    }
-    return true
-  }))
+  // token 验证
+  // .use(koaJwt({ secret: jwtSecret }).unless((ctx) => {
+  //   if (/^\/api/.test(ctx.path)) {
+  //     return pathToRegexp([
+  //       '/api/u/login',
+  //       '/api/u/register',
+  //       '/api/mock/by_projects',
+  //       '/api/mock/export',
+  //       '/api/wallpaper'
+  //     ]).test(ctx.path)
+  //   }
+  //   return true
+  // }))
   .use(koaBody({ multipart: true }))
   // .use(routerConfig.mock.routes())
   // .use(routerConfig.mock.allowedMethods())

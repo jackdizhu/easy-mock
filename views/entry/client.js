@@ -22,7 +22,7 @@ if (window.__INITIAL_STATE__) {
 }
 
 // 初始化用户信息
-store.commit('user/SET_VALUE', Vue.ls.get('user') || {})
+// store.commit('user/SET_VALUE', Vue.ls.get('user') || {})
 router.onReady(() => {
   router.beforeResolve((to, from, next) => {
     const matched = router.getMatchedComponents(to)

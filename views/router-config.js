@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import login from 'pages/login'
+import itemList from 'pages/itemList'
 import index from 'components/layout/index'
 
 Vue.use(Router)
@@ -11,7 +11,7 @@ export function createRouter () {
     mode: 'history',
     routes: [
       { path: '/', component: index },
-      { path: '/login', component: login }
+      { path: '/itemList', component: itemList }
     ]
   })
 
