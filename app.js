@@ -15,7 +15,7 @@ const staticCache = require('koa-static-cache')
 const util = require('./util')
 const logger = require('./util/logger')
 // const middleware = require('./middlewares')
-// const routerConfig = require('./router-config')
+const routerConfig = require('./router-config')
 
 const app = module.exports = new Koa()
 const uploadConf = config.get('upload')
@@ -49,8 +49,8 @@ app
   .use(koaBody({ multipart: true }))
   // .use(routerConfig.mock.routes())
   // .use(routerConfig.mock.allowedMethods())
-  // .use(routerConfig.api.routes())
-  // .use(routerConfig.api.allowedMethods())
+  .use(routerConfig.api.routes())
+  .use(routerConfig.api.allowedMethods())
 
 app.proxy = config.get('proxy')
 
@@ -58,7 +58,7 @@ app.proxy = config.get('proxy')
 if (!module.parent) {
   const port = config.get('port')
   const host = config.get('host')
-  // app.use(require('./middlewares/view').render(app))
+  app.use(require('./middlewares/view').render(app))
   app.listen(port, host)
   console.log(`server started at http://${host}:${port}`)
 }
