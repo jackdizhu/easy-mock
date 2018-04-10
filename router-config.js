@@ -33,7 +33,8 @@ exports.mock = mockRouter
       'title': 'login',
       'res_code': '0',
       'msg': '登录成功.',
-      'user': {
+      'success': true,
+      'data': {
         '_id': '5aa880ecdfd6d80818050d81',
         'ext': {
           'nick_name': 'nick_name',

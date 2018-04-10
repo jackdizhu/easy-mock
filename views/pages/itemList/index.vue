@@ -14,6 +14,7 @@
 </style>
 
 <script>
+import * as api from '../../api'
 export default {
   name: 'index',
   data () {
@@ -22,7 +23,19 @@ export default {
   },
   // 该方法会在 页面加载前执行
   asyncData ({ store, route }) {
-    store.commit('itemList/SET_VALUE')
+    let _li = store.itemList
+    // return store.dispatch('itemList/SET_VALUE', _li)
+    api.item.getList({
+      params: {
+        key: _li
+      }
+    }).then((res) => {
+      if (res.data.success) {
+        store.commit('itemList/SET_VALUE', res.data.data || {})
+        return res.data.data
+      }
+    })
+    // store.commit('itemList/SET_VALUE')
   },
   mounted () {
   },
