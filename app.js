@@ -14,8 +14,8 @@ const staticCache = require('koa-static-cache')
 
 const util = require('./util')
 const logger = require('./util/logger')
-const middleware = require('./middlewares')
-const routerConfig = require('./router-config')
+// const middleware = require('./middlewares')
+// const routerConfig = require('./router-config')
 
 const app = module.exports = new Koa()
 const uploadConf = config.get('upload')
@@ -26,13 +26,13 @@ onerror(app)
 validate(app)
 
 app
-  .use(middleware.ipFilter)
+  // .use(middleware.ipFilter)
   .use(favicon(path.join(__dirname, '/public/images/icon.png')))
   .use(serve('/dist', './dist'))
   .use(serve('/public', './public'))
   .use(serve('/upload', path.resolve(__dirname, 'config', uploadConf.dir)))
   .use(logger)
-  .use(middleware.util)
+  // .use(middleware.util)
   .use(cors({ credentials: true, maxAge: 2592000 }))
   .use(koaJwt({ secret: jwtSecret }).unless((ctx) => {
     if (/^\/api/.test(ctx.path)) {
@@ -58,7 +58,7 @@ app.proxy = config.get('proxy')
 if (!module.parent) {
   const port = config.get('port')
   const host = config.get('host')
-  app.use(require('./middlewares/view').render(app))
+  // app.use(require('./middlewares/view').render(app))
   app.listen(port, host)
   console.log(`server started at http://${host}:${port}`)
 }
