@@ -14,6 +14,8 @@ const staticCache = require('koa-static-cache')
 
 const util = require('./util')
 const logger = require('./util/logger')
+const log = require('./util/log')
+global._log = log()
 // const middleware = require('./middlewares')
 const routerConfig = require('./router-config')
 
@@ -31,7 +33,7 @@ app
   .use(serve('/dist', './dist'))
   .use(serve('/public', './public'))
   .use(serve('/upload', path.resolve(__dirname, 'config', uploadConf.dir)))
-  .use(logger)
+  // .use(logger)
   // .use(middleware.util)
   .use(cors({ credentials: true, maxAge: 2592000 }))
   // token 验证
@@ -48,8 +50,8 @@ app
   //   return true
   // }))
   .use(koaBody({ multipart: true }))
-  // .use(routerConfig.mock.routes())
-  // .use(routerConfig.mock.allowedMethods())
+  .use(routerConfig.mock.routes())
+  .use(routerConfig.mock.allowedMethods())
   .use(routerConfig.api.routes())
   .use(routerConfig.api.allowedMethods())
 

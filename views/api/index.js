@@ -8,7 +8,7 @@ let router
 const cookies = new Cookies()
 const isClient = process.env.VUE_ENV === 'client'
 const instance = axios.create({
-  baseURL: isClient ? '/api' : `http://${conf.host}:${conf.port}/api`,
+  baseURL: isClient ? '/mock' : `http://${conf.host}:${conf.port}/api`,
   timeout: conf.timeout
 })
 

@@ -9,7 +9,7 @@ const {
 // const middleware = require('./middlewares')
 
 const apiRouter = new Router({ prefix: '/api' })
-// const mockRouter = new Router({ prefix: '/mock' })
+const mockRouter = new Router({ prefix: '/mock' })
 
 // const ratelimit = require('koa-ratelimit')
 // const baseUtil = require('./util')
@@ -27,8 +27,30 @@ const apiRouter = new Router({ prefix: '/api' })
 //   }
 // })
 
-// exports.mock = mockRouter
-//   .all('*', middleware.mockFilter, rate, restc, mock.getMockAPI)
+exports.mock = mockRouter
+  .all('*', function (ctx) {
+    ctx.body = {
+      'title': 'login',
+      'res_code': '0',
+      'msg': '登录成功.',
+      'user': {
+        '_id': '5aa880ecdfd6d80818050d81',
+        'ext': {
+          'nick_name': 'nick_name',
+          'head_img': 'head_img'
+        },
+        'phone': '13010101212',
+        'email': '130@qq.com',
+        'date': new Date().getTime(),
+        'password': '',
+        'name': 'jack',
+        '__v': 0
+      },
+      'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiamFjayIsImlhdCI6MTUyMjA1NDAyMCwiZXhwIjoxNTIyMDU3NjIwfQ.v2dr_RcvWLv5jtpOvp0U_zHDkyYsxSG74HEzgmgeio0',
+      'get': {},
+      'post': {}
+    }
+  })
 
 exports.api = apiRouter
 

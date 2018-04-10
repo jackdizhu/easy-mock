@@ -1,6 +1,6 @@
 <template>
   <div class="em-index">
-    <div class="login">
+    <div class="itemList">
       itemList
     </div>
     <div class="ul-box">
@@ -19,6 +19,10 @@ export default {
   data () {
     return {
     }
+  },
+  // 该方法会在 页面加载前执行
+  asyncData ({ store, route }) {
+    store.commit('itemList/SET_VALUE')
   },
   mounted () {
   },

@@ -58,12 +58,11 @@ module.exports = class ViewMiddleware {
 
       try {
         ctx.set('Content-Type', 'text/html')
-        // ctx.body = await getHTML(context)
         ctx.body = await getHTML(context)
       } catch (error) {
         if (error.code === 401) {
           ctx.status = 302
-          ctx.redirect('/login')
+          ctx.redirect('/')
         } else {
           ctx.throw(error)
         }

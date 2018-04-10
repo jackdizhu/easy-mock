@@ -1,6 +1,9 @@
 <template>
   <div class="em-layout">
     index
+    <p>
+      <router-link to="/itemList" class="link">itemList</router-link>
+    </p>
   </div>
 </template>
 

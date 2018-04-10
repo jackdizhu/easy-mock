@@ -19,7 +19,7 @@ export default {
         }
       }).then((res) => {
         if (res.data.success) {
-          commit('SET_VALUE', res.data.data)
+          commit('SET_VALUE', res.data.data || {})
           return res.data.data
         }
       })
