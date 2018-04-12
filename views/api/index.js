@@ -3,12 +3,13 @@ import iView from 'iview'
 import conf from 'config'
 import Cookies from 'universal-cookie'
 import { serverCookies } from '../entry/server'
+import { request } from '../com/http'
 
 let router
 const cookies = new Cookies()
 const isClient = process.env.VUE_ENV === 'client'
 const instance = axios.create({
-  baseURL: isClient ? '/mock' : `http://${conf.host}:${conf.port}/api`,
+  baseURL: isClient ? '/mock' : `http://${conf.host}:${conf.port}`,
   timeout: conf.timeout
 })
 
@@ -109,11 +110,20 @@ const createAPI = (url, method, config) => {
   })
 }
 
-const item = {
+const item2 = {
   getList: config => createAPI('/item_getList', 'get', config)
+}
+
+const item = {
+  getList: config => request({
+    url: '/item_getList',
+    type: 'GET',
+    params: config
+  })
 }
 
 export {
   item,
+  item2,
   initAPI
 }

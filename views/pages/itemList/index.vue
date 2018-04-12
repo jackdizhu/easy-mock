@@ -27,9 +27,9 @@ export default {
     }
   },
   // 该方法会在 页面加载前执行
-  asyncData ({ store, route, _this }) {
+  asyncData ({ store, route, _this, callBack }) {
     let _li = store.itemList
-    api.item.getList({
+    api.item2.getList({
       params: {
         key: _li
       }
@@ -39,6 +39,11 @@ export default {
         store.commit('itemList/SET_VALUE', res.data.data || {})
         // 通过 list 方式 将数据放在当前组件
         _itemList = res.data.data || {}
+
+        console.log(_itemList, 'itemList --> index.vue asyncData')
+
+        callBack && callBack()
+        // return Promise.reject(res.data.data)
         return res.data.data
       }
     })
