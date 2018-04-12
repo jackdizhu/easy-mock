@@ -6,9 +6,9 @@
     <div class="ul-box">
       {{itemList}}
     </div>
-    <div class="ul-box">
+    <!-- <div class="ul-box">
       {{_itemList}}
-    </div>
+    </div> -->
   </div>
 </template>
 
