@@ -6,9 +6,9 @@
     <div class="ul-box">
       {{itemList}}
     </div>
-    <!-- <div class="ul-box">
-      {{_itemList}}
-    </div> -->
+    <div class="ul-box">
+      {{list}}
+    </div>
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default {
   name: 'index',
   data () {
     return {
-      _itemList: _itemList || {}
+      list: _itemList || {}
     }
   },
   // 该方法会在 页面加载前执行
@@ -37,7 +37,7 @@ export default {
       if (res.data.success) {
         // 通过 store.commit 保存到vuex 共享数据
         store.commit('itemList/SET_VALUE', res.data.data || {})
-        // 通过 _itemList 方式 将数据放在当前组件
+        // 通过 list 方式 将数据放在当前组件
         _itemList = res.data.data || {}
         return res.data.data
       }

@@ -4,12 +4,14 @@
 * 通过 to 页面 asyncData 方法提前获取下一页面 的数据
 
 ``` js
+// [Vue warn]: Property or method "_itemList" is not defined on the instance but referenced during render. Make sure that this property is reactive, either in the data option, or for class-based components, by initializing the property
+// data 数据不能以 _ 下划线开头
 let _itemList = {}
 export default {
   name: 'index',
   data () {
     return {
-      _itemList: _itemList || {}
+      list: _itemList || {}
     }
   },
   computed: {
