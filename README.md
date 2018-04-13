@@ -38,3 +38,41 @@ export default {
   }
 }
 ```
+
+## asyncData 方法修改 刷新页面没有数据问题
+
+``` js
+asyncData ({ store, route, _this, callBack }) {
+  return new Promise((resolve, reject) => {
+    let _li = store.itemList
+    api.item.getList({
+      params: {
+        key: _li
+      }
+    }).then((res) => {
+      if (res && res.data && res.success) {
+        // 通过 store.commit 保存到vuex 共享数据
+        store.commit('itemList/SET_VALUE', res.data || {})
+        // 通过 list 方式 将数据放在当前组件
+        _itemList = res.data || {}
+
+        console.log(_itemList, 'itemList --> index.vue asyncData')
+
+        callBack && callBack()
+        resolve(res.data)
+        return res.data
+      } else {
+        resolve({})
+        return {}
+      }
+    })
+  })
+}
+// 页面刷新 显示数据后 300ms后数据为空 待排查
+let _itemList = {}
+data () {
+  return {
+    list: _itemList || {}
+  }
+}
+```
