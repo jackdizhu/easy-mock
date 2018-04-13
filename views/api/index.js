@@ -5,7 +5,8 @@ import Cookies from 'universal-cookie'
 import { serverCookies } from '../entry/server'
 import { request } from '../com/http'
 
-let router
+// 保存路由信息
+let router = null
 const cookies = new Cookies()
 const isClient = process.env.VUE_ENV === 'client'
 const instance = axios.create({
@@ -46,61 +47,35 @@ const loading = {
   }
 }
 
-instance.interceptors.request.use((config) => {
-  let token
-  if (isClient) {
-    loading.start()
-    token = cookies.get(conf.storageNamespace + 'token')
-  } else {
-    token = serverCookies.get(conf.storageNamespace + 'token')
-  }
-  config.headers.Authorization = `Bearer ${token}`
-  return config
-}, error => Promise.reject(error))
-
-instance.interceptors.response.use((res) => {
-  const messageUnless = res.config.messageUnless || []
-  const body = res.data
-
-  if (isClient) loading.cancel()
-  if (body.success === false) {
-    if (body.code === 10001) {
-      body.data.forEach((date) => {
-        iView.Notice.error({
-          title: 'Error',
-          desc: date[Object.keys(date)[0]]
-        })
-      })
-    } else if (messageUnless.indexOf(body.message) === -1) {
-      iView.Notice.error({
-        title: 'Error',
-        desc: body.message
-      })
+instance.interceptors.request.use(
+  (config) => {
+    let token
+    if (isClient) {
+      loading.start()
+      token = cookies.get(conf.storageNamespace + 'token')
+    } else {
+      token = serverCookies.get(conf.storageNamespace + 'token')
     }
-    return Promise.reject(res)
-  }
-  return res
-}, (error) => {
-  const res = error.response
-  if (isClient) loading.cancel()
-  if (res) {
-    if (res.status === 401 && /authentication/i.test(res.data.error)) {
-      if (isClient) {
-        router.push('/log-out')
-      } else {
-        return Promise.reject({ code: 401 }) // eslint-disable-line
-      }
-    } else if (isClient && res.data && res.data.error) {
-      iView.Notice.error({
-        title: 'Error',
-        desc: res.data.error
-      })
-    }
-  }
-  Promise.reject(error)
-})
+    config.headers.Authorization = `Bearer ${token}`
+    return config
+  },
+  error => Promise.reject(error)
+)
 
-const initAPI = _router => (router = _router)
+instance.interceptors.response.use(
+  (res) => {
+    if (isClient) loading.cancel()
+    Promise.reject(res)
+  },
+  (error) => {
+    if (isClient) loading.cancel()
+    Promise.reject(error)
+  }
+)
+
+const initAPI = _router => {
+  router = _router
+}
 const createAPI = (url, method, config) => {
   config = config || {}
   return instance({
@@ -110,13 +85,16 @@ const createAPI = (url, method, config) => {
   })
 }
 
-const item2 = {
-  getList: config => createAPI('/item_getList', 'get', config)
-}
-
 const item = {
   getList: config => request({
     url: '/item_getList',
+    type: 'GET',
+    params: config
+  })
+}
+const item2 = {
+  getList: config => request({
+    url: '/item_getList2',
     type: 'GET',
     params: config
   })
@@ -125,5 +103,6 @@ const item = {
 export {
   item,
   item2,
-  initAPI
+  initAPI,
+  createAPI
 }

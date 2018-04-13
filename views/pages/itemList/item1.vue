@@ -1,16 +1,11 @@
 <template>
   <div class="em-index">
     <div class="itemList" @click="editItemId(itemList)">
-      itemList--{{getItemId}}
+      item1--{{getItemId}}
     </div>
     <div class="ul-box">
       {{itemList}}
     </div>
-    <div class="ul-box">
-      {{itemListfn}}
-    </div>
-    <p>-------------------</p>
-    <v-item1></v-item1>
   </div>
 </template>
 
@@ -20,12 +15,10 @@
 
 <script>
 import * as api from '../../api'
-import VItem1 from './item1.vue'
 import { mapGetters, mapActions, mapState } from 'vuex'
 export default {
   name: 'index',
   components: {
-    VItem1
   },
   data () {
     return {

@@ -68,11 +68,23 @@ asyncData ({ store, route, _this, callBack }) {
     })
   })
 }
-// 页面刷新 显示数据后 300ms后数据为空 待排查
+// 页面刷新 显示数据后 300ms后数据为空 待排查 ( 页面存在多组件时 子组件 数据不能显示 )
 let _itemList = {}
 data () {
   return {
     list: _itemList || {}
+  }
+}
+// store 开启 namespaced 命名空间 'itemList' 第一个字符串参数 是命名空间
+computed: {
+  ...mapGetters('itemList', [
+    'getItemId'
+  ]),
+  ...mapState([
+    'itemList'
+  ]),
+  itemListfn () {
+    return this.$store.state.itemList
   }
 }
 ```

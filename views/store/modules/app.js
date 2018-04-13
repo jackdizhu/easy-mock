@@ -1,5 +1,10 @@
+import { version } from '../../../package.json'
 export default {
   namespaced: true,
+  state: {
+    version: version,
+    readChangelog: false
+  },
   mutations: {
     SET_READ_CHANGELOG (state, payload) {
       state.readChangelog = payload

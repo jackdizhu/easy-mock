@@ -1,9 +1,16 @@
-import * as api from '../../api'
 export default {
   namespaced: true,
+  state: {
+    _id: '',
+    name: '',
+    nickName: '',
+    email: '',
+    headImg: '',
+    token: ''
+  },
   mutations: {
     SET_VALUE (state, payload) {
-      state.id = payload._id
+      state._id = payload._id
       state.name = payload.name
       state.nickName = payload.nick_name
       state.email = payload.email
@@ -12,17 +19,13 @@ export default {
     }
   },
   actions: {
-    GET_VALUE ({ commit, state }) {
-      return api.item.getList({
-        params: {
-          key: 'val'
-        }
-      }).then((res) => {
-        if (res.data && res.data.data && res.data.success) {
-          commit('SET_VALUE', res.data.data || {})
-          return res.data.data
-        }
-      })
+    set_value ({ commit, state, rootState }, data) {
+      commit('SET_VALUE', data)
+    }
+  },
+  getters: {
+    getItemId (state) {
+      return state._id
     }
   }
 }

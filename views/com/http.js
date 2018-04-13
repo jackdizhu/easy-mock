@@ -1,11 +1,12 @@
 import axios from 'axios'
 import https from 'https'
+import conf from 'config'
 // import storage from './com.js'
 // import { Message } from 'element-ui'
 
 axios.defaults.timeout = 1000 * 60 * 60
 // axios.defaults.baseURL = 'http://127.0.0.1:8000/mock/5a522f2eb9574d08787bf76a/app1'
-axios.defaults.baseURL = 'http://127.0.0.1:8000/mock/'
+axios.defaults.baseURL = `http://${conf.host}:${conf.port}/mock/`
 // axios.defaults.withCredentials = true // 带cookie 请求
 axios.defaults.httpsAgent = new https.Agent({
   rejectUnauthorized: false
