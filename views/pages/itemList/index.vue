@@ -42,13 +42,9 @@ export default {
           _itemList = res.data || {}
 
           console.log(_itemList, 'itemList --> index.vue asyncData')
-
-          callBack && callBack()
           resolve(res.data)
-          return res.data
         } else {
           resolve({})
-          return {}
         }
       })
     })
