@@ -74,9 +74,12 @@ function request (obj) {
     }
     fn(url, params).then(function (res) {
       let data = res.data || {}
+      console.log(data)
+
       resolve(data)
     }).catch(err => {
       console.log(err, 'request catch')
+      resolve({err: err})
     })
   })
 }

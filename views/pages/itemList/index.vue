@@ -23,29 +23,34 @@ export default {
   name: 'index',
   data () {
     return {
-      list: _itemList || {}
+      list: _itemList
     }
   },
   // 该方法会在 页面加载前执行
   asyncData ({ store, route, _this, callBack }) {
-    let _li = store.itemList
-    api.item2.getList({
-      params: {
-        key: _li
-      }
-    }).then((res) => {
-      if (res.data.success) {
-        // 通过 store.commit 保存到vuex 共享数据
-        store.commit('itemList/SET_VALUE', res.data.data || {})
-        // 通过 list 方式 将数据放在当前组件
-        _itemList = res.data.data || {}
+    return new Promise((resolve, reject) => {
+      let _li = store.itemList
+      api.item.getList({
+        params: {
+          key: _li
+        }
+      }).then((res) => {
+        if (res && res.data && res.success) {
+          // 通过 store.commit 保存到vuex 共享数据
+          store.commit('itemList/SET_VALUE', res.data || {})
+          // 通过 list 方式 将数据放在当前组件
+          _itemList = res.data || {}
 
-        console.log(_itemList, 'itemList --> index.vue asyncData')
+          console.log(_itemList, 'itemList --> index.vue asyncData')
 
-        callBack && callBack()
-        // return Promise.reject(res.data.data)
-        return res.data.data
-      }
+          callBack && callBack()
+          resolve(res.data)
+          return res.data
+        } else {
+          resolve({})
+          return {}
+        }
+      })
     })
   },
   mounted () {

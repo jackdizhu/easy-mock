@@ -12,13 +12,13 @@ export default {
     }
   },
   actions: {
-    SET_VALUE ({ commit, state }) {
+    GET_VALUE ({ commit, state }) {
       return api.item.getList({
         params: {
           key: 'val'
         }
       }).then((res) => {
-        if (res.data.success) {
+        if (res.data && res.data.data && res.data.success) {
           commit('SET_VALUE', res.data.data || {})
           return res.data.data
         }

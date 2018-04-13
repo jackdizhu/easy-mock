@@ -55,11 +55,12 @@ module.exports = class ViewMiddleware {
         url: ctx.url,
         cookies: new Cookies(ctx.headers.cookie)
       }
-
+      // console.log(context, '--------------------> context')
       try {
         ctx.set('Content-Type', 'text/html')
         ctx.body = await getHTML(context)
       } catch (error) {
+        // ctx.body = {err: error, msg: 'getHTML error'}
         if (error.code === 401) {
           ctx.status = 302
           ctx.redirect('/')
